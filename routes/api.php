@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Http\Controllers\PostController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -15,3 +16,6 @@ Route::get('/test', function (Request $request) {
 Route::get('/posts', function(){
     return Post::all();
 });
+
+Route::get('/', [PostController::class, 'index']);
+Route::get('/{id}', [PostController::class, 'show']);
