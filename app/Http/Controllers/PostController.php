@@ -23,9 +23,10 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required'
         ]);
-        $new = Post::create($values);
+        //$new = Post::create($values);
         //return Post::all()->find($new->id);
         //return Route::redirect('api/posts','api/posts/{$new->id}');
+        $new = $request->user()->posts()->create($values);
         return $new;
     }
 
