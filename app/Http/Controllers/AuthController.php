@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
         $token = $user->createToken($request->name);
         return [
             'user' => $user,
-            'token' => $token
+            'token' => $token->plainTextToken
         ];
     }
 
