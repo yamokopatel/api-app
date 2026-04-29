@@ -34,7 +34,7 @@ class AuthController extends Controller
         if(!$user || !Hash::check($request->password,$user->password)){
             return ['message' => 'The provided credentials are incorrect'];
         }
-        $token = $user->createToken($request->name);
+        $token = $user->createToken($user->name);
         return [
             'user' => $user,
             'token' => $token->plainTextToken
