@@ -14,7 +14,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        return Post::all()->find($id);
+        return Post::find($id);
     }
 
     public function store(Request $request)
@@ -29,13 +29,20 @@ class PostController extends Controller
         return $new;
     }
 
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
-
+        // return $request;
+        $values = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required'
+        ]);
+        Post::find($id)->update($values);
+        return Post::find($id);
     }
 
     public function destroy($id)
     {
-
+        Post::find($id)->delete();
+        return ['message' => 'The post was deleted.'];
     }
 }
