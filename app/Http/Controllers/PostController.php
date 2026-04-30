@@ -53,16 +53,27 @@ class PostController extends Controller implements HasMiddleware
         $post = Post::find($id);
 
         // autorizācija if ()
+        if($post->user_id == $request->user_id){
+            $post->update($values);
+            return $post;
+        }
 
-        $post->update($values);
+        return ['message' => 'You have not access to that post.'];
+        // $post->update($values);
 
         // $renew = $request->user()->posts()->find($id)->update($values);
-        return $post;
+        // return $post;
     }
 
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        Post::find($id)->delete();
-        return ['message' => 'The post was deleted.'];
+        // Post::find($id)->delete();
+        // return ['message' => 'The post was deleted.'];
+        $post = Post::find($id);
+        if($post->user_id == $request->user_id){
+            $post->delete();
+            return ['message' => 'The post was deleted.'];
+        }
+        return['message' => 'You have not access to that post.'];
     }
 }
